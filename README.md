@@ -2,14 +2,14 @@
 
 Coordination and safe snapshot core for sharing a Scrap Mechanic Survival save through Google Drive.
 
-This repository intentionally does **not** inject into, bypass protections in, or redistribute Scrap Mechanic. Native game integration is blocked on selecting an acceptable loader and validating hooks against build `24397771`.
+This repository uses the GPL-3.0-only license to integrate the GPL-3.0 `SmSdk` project. It intentionally does **not** redistribute Scrap Mechanic. Native game integration is build-gated and validated against build `24397771`.
 
 ## Components
 
 - `worker/`: Cloudflare Worker and D1 schema for Steam-authenticated membership and atomic host leases.
 - `helper/`: Windows .NET helper, publishable as `SharedSaveHost.exe`. It exposes authenticated named-pipe IPC and creates validated immutable local snapshots.
 - `protocol/`: versioned IPC and HTTP contracts.
-- `dll/`: integration boundary and supported-build policy, not an injector.
+- `dll/`: GPL DLL module, initially limited to safe load diagnostics while hooks are researched.
 
 ## Safety invariants
 

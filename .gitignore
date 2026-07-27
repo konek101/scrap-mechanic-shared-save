@@ -1,6 +1,8 @@
 node_modules/
 .wrangler/
 dist/
+build/
+build-*/
 bin/
 obj/
 TestResults/
