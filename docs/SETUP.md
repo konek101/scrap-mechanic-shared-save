@@ -27,4 +27,4 @@ The helper requires a random `--secret`, `--pipe-name`, `--game-pid`, and `--gam
 
 ## Integration status
 
-No DLL loader has been selected. Do not test by launching `ScrapMechanic.exe` directly; launch through Steam (`steam://run/387990`). Native hooks, lobby integration, and save-safe signals require research on the exact supported build before they can be enabled.
+The test loader is the separately installed `SM-DLL-Injector`. Do not test by launching `ScrapMechanic.exe` directly; launch through Steam (`steam://run/387990`). Native hooks, lobby integration, and save-safe signals require research on the exact supported build before they can be enabled. See `docs/CURRENT_BUILD_RESEARCH.md` for the current version lock.
