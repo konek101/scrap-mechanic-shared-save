@@ -73,6 +73,7 @@ async function validLease(env: Env, worldId: string): Promise<Lease | null> {
 }
 
 async function createSession(request: Request, env: Env): Promise<Response> {
+  if (!env.STEAM_WEB_API_KEY) return fail("Steam authentication is not configured", 503);
   const input = await body(request);
   if (typeof input?.steamTicket !== "string" || input.steamTicket.length > 16_384) return fail("invalid steamTicket", 400);
   const steamId = await steamIdFromTicket(input.steamTicket, env.STEAM_WEB_API_KEY);
@@ -138,7 +139,7 @@ async function commitSnapshot(request: Request, env: Env, worldId: string, sessi
   const input = await body(request);
   if (typeof input?.leaseToken !== "string" || typeof input.snapshot !== "object" || input.snapshot === null) return fail("leaseToken and snapshot required", 400);
   const snapshot = input.snapshot as Record<string, unknown>;
-  if (snapshot.worldId !== worldId || typeof snapshot.driveFileId !== "string" || typeof snapshot.sha256 !== "string") return fail("invalid snapshot", 400);
+  if (snapshot.worldId !== worldId || snapshot.sourceSteamId !== session.steamId || typeof snapshot.driveFileId !== "string" || typeof snapshot.sha256 !== "string") return fail("invalid snapshot", 400);
   const result = await env.DB.prepare("UPDATE worlds SET latest_snapshot_json = ? WHERE id = ? AND EXISTS (SELECT 1 FROM leases WHERE world_id = ? AND host_steam_id = ? AND token_hash = ? AND expires_at_ms > ?)")
     .bind(JSON.stringify(snapshot), worldId, worldId, session.steamId, await sha256(input.leaseToken), now()).run();
   return result.meta.changes === 1 ? json({ ok: true }) : fail("lease lost", 409);

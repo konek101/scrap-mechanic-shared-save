@@ -1,8 +1,9 @@
 name = "shared-save-coordinator"
 main = "src/index.ts"
 compatibility_date = "2025-07-18"
+account_id = "e666f041db6083e4920f9ac6e6efd8e7"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "shared-save"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "7b27f8d2-7b54-471f-8e71-beae4cc8a345"
